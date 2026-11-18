@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/api/chat", async (req, res) => {
-    try (
+    try {
         const messages = req.body.messages;
 
         if (!messages || !Array.isArray(messages)) {
@@ -119,7 +119,7 @@ app.post("/api/chat", async (req, res) => {
         res.end();
 
 
-    ) catch (error) {
+    } catch (error) {
 
         console.error("Server Error:", error);
 
@@ -129,9 +129,7 @@ app.post("/api/chat", async (req, res) => {
             });
         } else {
             res.write(
-                'data: ${JSON.stringify(
-                    "Terjadi kesalahan pada server"
-                )}\n\n'
+                `data: ${JSON.stringify("Terjadi kesalahan pada server")}\n\n`
             );
 
             res.end();
