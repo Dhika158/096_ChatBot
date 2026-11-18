@@ -74,6 +74,28 @@ app.post("/api/chat", async (req, res) => {
             });
 
             const lines = butter.split("\n");
+
+            // Simpan bagian terakhir mungkin belum lengkap
+            butter = lines.pop();
+
+            for (const line of lines) {
+
+                const trimmedLine = line.trim();
+
+                if (!trimmedLine) {
+                    continue;
+                }
+
+                if (trimmedLine.startsWith("data: ")) {
+                    continue;
+                }
+
+                const data = trimedLine.slice(5).trim();
+
+                if (data === "[DONE]") {
+                    continue;
+                }
+            }
         }
     )
 }
