@@ -54,5 +54,26 @@ app.post("/api/chat", async (req, res) => {
         
         // Header untuk streaming
         res.setHeader("Content-Type", "text/event-stream");
+        res.setHeader("Cache-Control", "no-cache");
+        res.setHeader("Connection", "keep-alive");
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+
+        let butter = "";
+
+        while (true) {
+            const { done, value } = await reader.read();
+
+            if (done) {
+                break;
+            }
+
+            butter += decoder.decode(value, {
+                stream: true 
+            });
+
+            const lines = butter.split("\n");
+        }
     )
 }
